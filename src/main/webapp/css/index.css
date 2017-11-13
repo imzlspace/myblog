@@ -1,0 +1,26 @@
+.left_panel{
+	border: 1px solid black;
+	margin-left: 116px;
+	height: 744px;
+}
+
+.right_panel{
+	border: 1px solid black;
+	margin-left: 25px;
+	height: 500px;
+}
+
+.bottom{
+	margin-top: 20px;
+	margin-left: 116px;
+	margin-bottom: 20px;
+	height: 100px;
+	border: 1px solid black;
+
+}
+
+.show_lib{
+	margin-top: 5px;
+	height: 100px;
+	background-color: yellow;
+}

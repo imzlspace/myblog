@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+
+    <!-- 开启扫描 规定扫描的包 -->
+    <context:annotation-config />
+    <context:component-scan base-package="myblog.*"/>
+    <aop:aspectj-autoproxy/>
+
+
+    <!-- mysql 数据库连接信息 -->
+    <bean id="datasource" init-method="init" destroy-method="close" class="com.alibaba.druid.pool.DruidDataSource" >
+        <property name="url" value="jdbc:mysql://60.205.216.140:3306/myblog?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8" />
+        <property name="username" value="myblog"/>
+        <property name="password" value="zhanglei123" />
+    </bean>
+
+    <!-- sqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+        <property name="dataSource" ref="datasource" />
+        <property name="mapperLocations" value="classpath:myblog/mapper/*.xml"/>
+    </bean>
+    <!-- mybatis配置 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="myblog.mapper" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="20971520" />
+        <property name="maxInMemorySize" value="1048576" />
+    </bean>
+
+
+</beans>
